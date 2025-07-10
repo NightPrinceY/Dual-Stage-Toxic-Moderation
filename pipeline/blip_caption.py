@@ -7,13 +7,13 @@ def load_caption_model():
     model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
     return processor, model
 
-# Only cache the model/processor, not the image input
+
 @st.cache_resource
 def get_blip_model():
     return load_caption_model()
 
 def caption_image(_img):
-    # _img: leading underscore disables Streamlit's hashing for this argument
+    
     processor, model = get_blip_model()
     inputs = processor(images=_img, return_tensors="pt")
     pixel_values = inputs["pixel_values"]
